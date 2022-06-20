@@ -1,5 +1,5 @@
 # Lista de exercícios - Condições
-
+from calendar import isleap
 
 def acrescimo_nota_bb(nota_sozinho, nota_com_ajuda):
     """Recebe a nota do litle brother antes de receber ajuda, e a nota
@@ -14,7 +14,10 @@ def acrescimo_nota_bb(nota_sozinho, nota_com_ajuda):
     Retorna:
         float: o acréscimo na nota obtido pelo aluno que ajudou seu colega.
     """
-
+    if nota_com_ajuda > nota_sozinho:
+        return round((nota_com_ajuda - nota_sozinho) * 1/4, 1)
+    else:
+        return 0
 
 def maior3(a, b, c):
     """Recebe três valores, e retorna o maior dos três.
@@ -27,7 +30,12 @@ def maior3(a, b, c):
     Retorna:
         float: o maior entre os três valores.
     """
-
+    if a > b and a > c:
+        return a
+    elif b > c:
+        return b
+    else:
+        return c
 
 def menor3(a, b, c):
     """Recebe três valores, e retorna o menor dos três.
@@ -40,6 +48,12 @@ def menor3(a, b, c):
     Retorna:
         float: o menor entre os três valores.
     """
+    if a < b and a < c:
+        return a
+    elif b < c:
+        return b
+    else:
+        return c
 
 
 def testa_lados(a, b, c):
@@ -56,6 +70,17 @@ def testa_lados(a, b, c):
         string: um texto indicando o resultado,
                 conforme aparece nos testes no final desse arquivo.
     """
+   
+    if (abs(b - c)<a<(b + c)) or (abs(a-c)<b<(a+c)) or (abs(a-b)<c<(a+b)):
+        if a == b and b == c:
+            return "Triângulo equilátero"
+        elif (a==b and a!=c) or (b==c and b!=a) or (a==c and a!=b):
+            return "Triângulo isósceles"
+        else:
+            return "Triângulo escaleno"
+
+    else:
+        return "Não forma um triângulo"
 
 
 def ano_bissexto(ano):
@@ -67,6 +92,12 @@ def ano_bissexto(ano):
     Retorna:
         bool: True ou False (verdadeiro ou falso), caso a ano seja ou não bissexto.
     """
+    
+
+    if isleap(ano):
+        return True
+    else:
+        return False
 
 
 def maior_dia_do_mes(mes, ano):
@@ -83,7 +114,14 @@ def maior_dia_do_mes(mes, ano):
     Retorna:
         int: um inteiro indicando o último dia válido para aquele mês e ano.
     """
-
+    if mes == 1 or mes == 3 or mes == 5 or mes == 7 or mes == 10 or mes == 12:
+        return 31
+    elif mes == 4 or mes == 6 or mes == 8 or mes == 9 or mes == 11:
+        return 30
+    elif isleap(ano) and mes == 2:
+        return 29
+    else:
+        return 28
 
 def data_valida(data):
     """Recebe uma string no formato dd/mm/aaaa e informa
