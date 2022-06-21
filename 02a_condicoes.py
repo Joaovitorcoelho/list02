@@ -1,5 +1,7 @@
 # Lista de exercícios - Condições
 from calendar import isleap
+from operator import truediv
+from datetime import datetime
 
 def acrescimo_nota_bb(nota_sozinho, nota_com_ajuda):
     """Recebe a nota do litle brother antes de receber ajuda, e a nota
@@ -135,7 +137,16 @@ def data_valida(data):
     Retorna:
         bool: True ou False, indicando se a datá é válida ou não.
     """
+    
+    dia, mes, ano = map(int, data.split('/'))
 
+    if  mes < 1 or mes > 12 or ano <= 0:
+        return False
+    if dia > 31:
+        return False
+    else: 
+        return True
+      
 
 def delta(a, b, c):
     """Calcula delta, que é utilizado na fórmula de báskara.
@@ -149,7 +160,8 @@ def delta(a, b, c):
     Retorna:
         (float): o valor do delta
     """
-
+    
+    
 
 def baskara(a, b, c):
     """Calcule as raízes de uma equação do segundo grau, na forma
