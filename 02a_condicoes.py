@@ -138,17 +138,16 @@ def data_valida(data):
     """
     dia, mes, ano = map(int, data.split('/'))
     meses30dias = 4,6,9,11
-    meses31dias = 1,3,5,7,8,10,12
 
     if  mes < 1 or mes > 12 or ano <= 0:
         return False
-    elif meses31dias and dia > 31:
-        return False
-    if meses30dias and dia > 30:
+    elif meses30dias.count(mes) == 1 and dia > 30:
         return False 
-    if ano_bissexto(ano) and mes == 2:
+    elif ano_bissexto(ano) and mes == 2:
         return True
-    if mes == 2 and dia > 28:
+    elif mes == 2 and dia > 28:
+        return False
+    elif dia > 31:
         return False
     else: 
         return True
