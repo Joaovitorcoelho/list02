@@ -1,7 +1,6 @@
 # Lista de exercícios - Condições
 from calendar import isleap
-from operator import truediv
-from datetime import datetime
+import math
 
 def acrescimo_nota_bb(nota_sozinho, nota_com_ajuda):
     """Recebe a nota do litle brother antes de receber ajuda, e a nota
@@ -96,7 +95,7 @@ def ano_bissexto(ano):
     """
     
 
-    if isleap(ano):
+    if ano % 4 == 0 and (ano % 100 != 0 or ano % 400 == 0):
         return True
     else:
         return False
@@ -120,7 +119,7 @@ def maior_dia_do_mes(mes, ano):
         return 31
     elif mes == 4 or mes == 6 or mes == 8 or mes == 9 or mes == 11:
         return 30
-    elif isleap(ano) and mes == 2:
+    elif ano % 4 == 0 and (ano % 100 != 0 or ano % 400 == 0) and mes == 2:
         return 29
     else:
         return 28
@@ -137,16 +136,23 @@ def data_valida(data):
     Retorna:
         bool: True ou False, indicando se a datá é válida ou não.
     """
-    
     dia, mes, ano = map(int, data.split('/'))
+    meses30dias = 4,6,9,11
+    meses31dias = 1,3,5,7,8,10,12
 
     if  mes < 1 or mes > 12 or ano <= 0:
         return False
-    if dia > 31:
+    elif meses31dias and dia > 31:
+        return False
+    if meses30dias and dia > 30:
+        return False 
+    if ano_bissexto(ano) and mes == 2:
+        return True
+    if mes == 2 and dia > 28:
         return False
     else: 
         return True
-      
+
 
 def delta(a, b, c):
     """Calcula delta, que é utilizado na fórmula de báskara.
@@ -160,8 +166,9 @@ def delta(a, b, c):
     Retorna:
         (float): o valor do delta
     """
-    
-    
+    delta = b ** 2 - (4 * a * c)
+
+    return delta
 
 def baskara(a, b, c):
     """Calcule as raízes de uma equação do segundo grau, na forma
@@ -184,6 +191,20 @@ def baskara(a, b, c):
         tupla de floats: uma tupla, contando os valores das raízes, sendo
         uma raiz, duas raízes ou uma tupla vazia caso não existam raízes.
     """
+    delta = b ** 2 - (4 * a * c)
+
+    if delta < 0:
+        return ()
+    
+    elif a == 0:
+        return (-c / b,)
+    elif delta == 0:
+        return (-b / 2 * a,)
+    else: 
+        resultado1 = (-b + math.sqrt(delta)) / 2 * a  
+        resultado2 = (-b - math.sqrt(delta)) / 2 * a
+        return resultado1, resultado2
+    
 
 
 # Área de testes: só mexa aqui se souber o que está fazendo!
