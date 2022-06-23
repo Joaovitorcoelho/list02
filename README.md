@@ -1,2 +1,2 @@
 # list03
-lista 03 bsi
+lista 02 bsi
